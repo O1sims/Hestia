@@ -3,6 +3,7 @@ import api.config
 from django.conf.urls import url
 
 from api.views.property_data import PropertyDataView, PropertyDataIdView
+from api.views.property_valuation import PropertyValuationEstimationView, PropertyValuationDifferentialView
 
 from rest_framework.urlpatterns import format_suffix_patterns
 
@@ -29,6 +30,15 @@ urlpatterns = format_suffix_patterns([
     url(r'^api/v{}/properties/(?P<propertyId>.+)/$'.format(
         config.API_VERSION),
         PropertyDataIdView.as_view()),
+
+    # Property valuation
+    url(r'^api/v{}/property_valuation/estimation$'.format(
+        config.API_VERSION),
+        PropertyValuationEstimationView.as_view()),
+
+    url(r'^api/v{}/property_valuation/differential$'.format(
+        config.API_VERSION),
+        PropertyValuationDifferentialView.as_view()),
 
     # Swagger
     url(r'^swagger/$',
