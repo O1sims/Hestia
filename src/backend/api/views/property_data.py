@@ -5,10 +5,9 @@ from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from rest_framework.generics import ListAPIView, ListCreateAPIView
 
+from api.config import MONGO_DB_INFO
 from api.services.MongoService import MongoService
 from api.models.property_data import PropertyDataModel
-
-import analytics.config as config
 
 
 SEARCH_Q = openapi.Parameter(
@@ -30,7 +29,7 @@ class PropertyDataView(ListCreateAPIView):
             raise ValueError(
                 'Please provide some search query with the `q` query parameter')
         properties = MongoService().search_collection(
-            collection_name=config.MONGO_DB_INFO['propertyCollection'],
+            collection_name=MONGO_DB_INFO['propertyCollection'],
             search_string=search_query.lower())
         return Response(
             data=properties,
@@ -42,7 +41,7 @@ class PropertyDataView(ListCreateAPIView):
             data=request.data).is_valid(
             raise_exception=True)
         properties = MongoService().insert_to_collection(
-            collection_name=config.MONGO_DB_INFO['propertyCollection'],
+            collection_name=MONGO_DB_INFO['propertyCollection'],
             data=request.data)
         return Response(
             data=properties,
@@ -55,7 +54,7 @@ class PropertyDataIdView(ListAPIView):
 
     def get(self, request, *args, **kwargs):
         property = MongoService().get_from_collection(
-            collection_name=config.MONGO_DB_INFO['propertyCollection'],
+            collection_name=MONGO_DB_INFO['propertyCollection'],
             property_id=self.kwargs['propertyId'])
         return Response(
             data=property,

@@ -1,7 +1,5 @@
 import json
 
-from analytics import config
-
 from api.config import BASE_PATH, MONGO_DB_INFO
 from api.services.MongoService import MongoService
 

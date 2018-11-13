@@ -1,4 +1,4 @@
-import api.config
+from api.config import API_VERSION
 
 from django.conf.urls import url
 
@@ -14,7 +14,7 @@ from drf_yasg import openapi
 schema_view = get_schema_view(
     openapi.Info(
         title="Hestia API",
-        default_version=config.API_VERSION,
+        default_version=API_VERSION,
         description="Hestia API documentation"
     ),
     validators=['flex', 'ssv'],
@@ -24,20 +24,20 @@ schema_view = get_schema_view(
 urlpatterns = format_suffix_patterns([
     # Properties collection
     url(r'^api/v{}/properties/$'.format(
-        config.API_VERSION),
+        API_VERSION),
         PropertyDataView.as_view()),
 
     url(r'^api/v{}/properties/(?P<propertyId>.+)/$'.format(
-        config.API_VERSION),
+        API_VERSION),
         PropertyDataIdView.as_view()),
 
     # Property valuation
     url(r'^api/v{}/property_valuation/estimation$'.format(
-        config.API_VERSION),
+        API_VERSION),
         PropertyValuationEstimationView.as_view()),
 
     url(r'^api/v{}/property_valuation/differential$'.format(
-        config.API_VERSION),
+        API_VERSION),
         PropertyValuationDifferentialView.as_view()),
 
     # Swagger
