@@ -1,0 +1,34 @@
+<div class="container-fluid" style="background-color:#e9e9e9; text-align:center;
+  border-bottom:5px solid #E0E0E0;">
+  <div class="container-fluid" style="text-align: center; width:80%;">
+    <div class="col-sm-12">
+      <searchbar></searchbar>
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="searchResults.length==0 && !searching">
+  <h2>No properties found that match the search query "{{searchQuery}}"</h2>
+</div>
+
+<div class="container" style="text-align:center;" *ngIf="searching">
+  <h2>Searching...</h2>
+  <span class="glyphicon glyphicon-repeat fast-right-spinner"></span>
+</div>
+
+<div class="container" *ngIf="searchResults.length > 0">
+  <h2>Found {{((searchResults.length-1)*groupSize)+searchResults[(searchResults.length-1)].length}}
+    results for "{{searchQuery}}" in properties for sale</h2>
+  <div class="row" style="padding-bottom: 35px;" *ngFor="let resultGroup of searchResults">
+    <div class="panel col-sm-6" *ngFor="let result of resultGroup">
+      <img class="img-thumbnail"
+        src={{result.image}}
+        routerLink="/property/{{result.propertyId}}">
+      <h3 style="text-transform: uppercase;"
+        routerLink="/property/{{result.propertyId}}">{{result.address}}</h3>
+      <h5>{{result.estateAgent.name}}</h5>
+      <h4>{{result.brief}}</h4>
+      <h4>{{result.price}}</h4>
+    </div>
+  </div>
+</div>
