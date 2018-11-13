@@ -1,0 +1,84 @@
+<div class="container">
+  <h1>Property valuation</h1>
+</div>
+
+<div class="container" style="padding-top:25px;">
+  <form class="form-horizontal">
+    <div class="form-group">
+      <label class="control-label col-sm-2">Postcode</label>
+      <div class="col-sm-10">
+        <select class="form-control" style="text-transform:uppercase;"
+          (input)="setFeature($event, 'postcode')">
+          <option *ngFor="let postcode of postcodeChoices">{{postcode}}</option>
+        </select>
+      </div>
+    </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2">Heating</label>
+    <div class="col-sm-10">
+      <select class="form-control" style="text-transform:capitalize;"
+        (input)="setFeature($event, 'heating')">
+        <option *ngFor="let heating of heatingChoices">{{heating}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2">Property style</label>
+    <div class="col-sm-10">
+      <select class="form-control" style="text-transform:capitalize;"
+        (input)="setFeature($event, 'propertyStyle')">
+        <option *ngFor="let style of propertyStyleChoices">{{style}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2">Bedrooms</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" min=1 value=1
+        (input)="setFeature($event, 'bedrooms')">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2">Garden</label>
+    <div class="col-sm-1">
+      <input type="checkbox" (click)="setAmenityBool('garden');">
+    </div>
+
+    <label class="control-label col-sm-2">Garage</label>
+    <div class="col-sm-1">
+      <input type="checkbox" (click)="setAmenityBool('garage');">
+    </div>
+
+    <label class="control-label col-sm-2">Driveway</label>
+    <div class="col-sm-1">
+      <input type="checkbox" (click)="setAmenityBool('driveway');">
+    </div>
+
+    <label class="control-label col-sm-2">Bay window</label>
+    <div class="col-sm-1">
+      <input type="checkbox" (click)="setAmenityBool('bayWindow');">
+    </div>
+</div>
+</form>
+
+<div style="padding-top:25px;">
+  <button class="btn btn-success outline pull-right" (click)="estimatePropertyValue()">
+    <strong>ESTIMATE VALUE</strong>
+  </button>
+</div>
+</div>
+
+<div class="container" style="padding-top:25px;">
+  <div class="jumbotron">
+    <h2 *ngIf="estimatedValue==undefined">
+      Fill out the form above to estimate the value of your house...
+    </h2>
+    <h2 *ngIf="estimatedValue!=undefined">
+      {{estimatedValue}}
+    </h2>
+  </div>
+</div>
