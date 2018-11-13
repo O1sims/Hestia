@@ -7,8 +7,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" routerLink=""
-        (click)="assignSelectedTab('search')">
+      <a class="navbar-brand" routerLink="" (click)="assignSelectedTab('search')">
         <strong>Hestia</strong>
       </a>
     </div>
@@ -17,6 +16,11 @@
         <li [ngClass]="{'active': selectedTab=='search'}" style="border-radius: 4px;">
           <a routerLink="" (click)="assignSelectedTab('search')">
             <strong>Property search</strong>
+          </a>
+        </li>
+        <li [ngClass]="{'active': selectedTab=='valuation'}" style="border-radius: 4px;">
+          <a routerLink="valuation" (click)="assignSelectedTab('valuation')">
+            <strong>Valuation</strong>
           </a>
         </li>
       </ul>
