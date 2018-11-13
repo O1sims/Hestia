@@ -1,0 +1,27 @@
+version: '2'
+services:
+  hestia:
+    restart: unless-stopped
+    image: hestia:latest
+    container_name: hestia
+    command: python /hestia/manage.py runserver 0.0.0.0:5000
+    ports:
+      - "5000:5000"
+    volumes:
+      - "./backend/:/hestia/"
+    depends_on:
+      - hestia-db
+    environment:
+      - HESTIA_PORT=5000
+      - HESTIA_HOSTNAME=hestia
+      - MONGO_PORT=8210
+      - MONGO_HOSTNAME=hestia-db
+      - DB_NAME=Hestia
+      - DEVELOPMENT=True
+
+  hestia-db:
+    restart: unless-stopped
+    image: mongo:latest
+    command: mongod --port 8210
+    ports:
+      - "8210:8210"
