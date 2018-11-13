@@ -3,3 +3,12 @@
 
 # Pickles
 *.pickle
+
+# Javascript dependencies
+node_modules/
+
+# Auto-generated JS
+src/webserver/gui/*.js
+src/webserver/gui/**/*.js
+!src/webserver/gui/assets/*.js
+!src/webserver/gui/assets/js/*.js
