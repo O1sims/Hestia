@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 
 from utils.data_loader import insert_default_property_data
+from analytics.property_valuation_estimator import create_property_estimation_model
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -128,4 +129,8 @@ STATICFILES_DIRS = [
 ]
 
 # Load default Belfast property data
-saved_items = insert_default_property_data()
+property_data = insert_default_property_data()
+
+# Generate property valuation model
+create_property_estimation_model(
+    property_data=property_data)
