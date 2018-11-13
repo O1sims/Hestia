@@ -6,6 +6,7 @@ import { BrowserModule }             from '@angular/platform-browser';
 import { AppComponent }              from './app.component';
 
 import { NavBarComponent }           from './navbar/navbar.component';
+import { SearchBarComponent }        from './searchbar/searchbar.component';
 
 import { HomeComponent }             from './home/home.component';
 import { SearchComponent }           from './search/search.component';
@@ -23,7 +24,8 @@ import { routing }                   from './app.routing';
       AppComponent,
       HomeComponent,
       SearchComponent,
-      NavBarComponent
+      NavBarComponent,
+      SearchBarComponent
     ],
     bootstrap: [
       AppComponent
