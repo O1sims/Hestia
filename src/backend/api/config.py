@@ -6,6 +6,8 @@ import os
 
 BASE_PATH = '/hestia/'
 
+API_VERSION = "1.0.0"
+
 MONGO_CONNECTION = {
     "host": os.environ.get(
         key='MONGO_HOSTNAME',
