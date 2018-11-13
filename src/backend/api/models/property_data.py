@@ -1,26 +1,6 @@
 from rest_framework import serializers
 
 
-SORTING_CHOICES = (
-    "recentlyAdded",
-    "mostPopular",
-    "recentlyUpdated",
-    "priceLowHigh",
-    "priceHighLow"
-)
-
-PROPERTY_TYPE_CHOICES = (
-    'sale',
-    'rent'
-)
-
-
-class GeneratePropertyDataModel(serializers.Serializer):
-    area = serializers.CharField()
-    propertyType = serializers.ChoiceField(choices=PROPERTY_TYPE_CHOICES)
-    sortBy = serializers.ChoiceField(choices=SORTING_CHOICES)
-
-
 class PropertyLocationModel(serializers.Serializer):
     lat = serializers.FloatField(required=False)
     lon = serializers.FloatField(required=False)

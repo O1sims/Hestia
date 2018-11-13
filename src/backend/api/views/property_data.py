@@ -3,7 +3,7 @@ from drf_yasg.utils import swagger_auto_schema
 
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import ListAPIView, ListCreateAPIView
 
 from api.services.MongoService import MongoService
 from api.models.property_data import PropertyDataModel
@@ -46,4 +46,17 @@ class PropertyDataView(ListCreateAPIView):
             data=request.data)
         return Response(
             data=properties,
+            status=200)
+
+
+class PropertyDataIdView(ListAPIView):
+    renderer_classes = (JSONRenderer, )
+    serializer_class = PropertyDataModel
+
+    def get(self, request, *args, **kwargs):
+        property = MongoService().get_from_collection(
+            collection_name=config.MONGO_DB_INFO['propertyCollection'],
+            property_id=self.kwargs['propertyId'])
+        return Response(
+            data=property,
             status=200)
