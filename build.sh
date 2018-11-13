@@ -21,5 +21,6 @@ EOF
         ;;
     all)
         docker build -t hestia:latest src/backend/.
+        docker build -t hestia-gui:latest src/webserver/.
         ;;
 esac

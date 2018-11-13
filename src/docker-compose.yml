@@ -19,6 +19,17 @@ services:
       - DB_NAME=Hestia
       - DEVELOPMENT=True
 
+  hestia-gui:
+    restart: unless-stopped
+    image: hestia-gui:latest
+    container_name: hestia-gui
+    ports:
+      - "3000:3000"
+    volumes:
+      - "./webserver/gui/:/gui/"
+    depends_on:
+      - hestia
+
   hestia-db:
     restart: unless-stopped
     image: mongo:latest
