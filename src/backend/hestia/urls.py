@@ -28,5 +28,16 @@ urlpatterns = format_suffix_patterns([
 
     url(r'^api/v{}/properties/(?P<propertyId>.+)/$'.format(
         config.API_VERSION),
-        PropertyDataIdView.as_view())
+        PropertyDataIdView.as_view()),
+
+    # Swagger
+    url(r'^swagger/$',
+        schema_view.with_ui(
+            'swagger', cache_timeout=0),
+        name='schema-swagger-ui'),
+
+    url(r'^redoc/$',
+        schema_view.with_ui(
+            'redoc', cache_timeout=0),
+        name='schema-redoc')
 ])
