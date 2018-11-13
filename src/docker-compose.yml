@@ -22,6 +22,7 @@ services:
   hestia-db:
     restart: unless-stopped
     image: mongo:latest
+    container_name: hestia-db
     command: mongod --port 8210
     ports:
       - "8210:8210"
