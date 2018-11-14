@@ -1,7 +1,7 @@
 # Python byte code
 *.pyc
 
-# Pickles
+# Pickle files
 *.pickle
 
 # Javascript dependencies
