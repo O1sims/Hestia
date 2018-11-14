@@ -9,8 +9,7 @@ class MongoService:
     def __init__(self):
         self.mongo_connection = pm.MongoClient(
             host=os.environ.get('MONGO_HOSTNAME'),
-            port=int(os.environ.get('MONGO_PORT'))
-        )
+            port=int(os.environ.get('MONGO_PORT')))
 
     def count_collection(self, collection_name):
         mongo_collection = self.mongo_connection[os.environ.get('DB_NAME')][collection_name]
@@ -23,7 +22,7 @@ class MongoService:
     def insert_to_collection(self, collection_name, data):
         mongo_collection = self.mongo_connection[os.environ.get('DB_NAME')][collection_name]
         mongo_collection.insert(data)
-        return 0
+        print "Successfully added data to the {} collection".format(collection_name)
 
     def get_from_collection(self, collection_name, mongo_id=None, property_id=None):
         mongo_collection = self.mongo_connection[os.environ.get('DB_NAME')][collection_name]

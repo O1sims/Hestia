@@ -17,7 +17,6 @@ HEATING_CHOICES = (
     "oil"
 )
 
-
 # Postcodes for Belfast and Holywood
 POSTCODE_CHOICES = (
     "BT1", "BT2", "BT3", "BT4", "BT5",
