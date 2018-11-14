@@ -28,7 +28,7 @@ export class PropertyService {
   priceImperfection(propertyData) {
     var requestoptions = new RequestOptions({
 			method: RequestMethod.Post,
-      url: this.api + '/property_valuation/differential',
+      url: this.api + '/property_valuation/differential/',
       body: propertyData
 		});
 

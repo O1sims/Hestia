@@ -18,7 +18,7 @@ export class ValuationService {
   propertyValuation(propertyData) {
     var requestoptions = new RequestOptions({
 			method: RequestMethod.Post,
-			url: this.api + '/property_valuation/estimation',
+			url: this.api + '/property_valuation/estimation/',
       body: propertyData
 		});
 		return this.http.request(
