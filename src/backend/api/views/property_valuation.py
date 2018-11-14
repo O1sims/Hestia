@@ -10,12 +10,12 @@ from api.models.property_valuation import PropertyValuationEstimationModel, Prop
 
 def myopic_differential(given_price, estimation):
     difference = given_price - estimation
-    if difference > 0:
+    if difference > 5:
         label = "overvalued"
-    elif difference < 0:
+    elif difference < -5:
         label = "undervalued"
     else:
-        label = "accurate"
+        label = "correctly valued"
     return {
         "difference": difference,
         "label": label
