@@ -59,9 +59,9 @@ style="background-color:#EEE; border-bottom: 5px solid #E0E0E0;">
 </div>
 
 <div class="container">
-  <div [ngClass]="valuationLabel=='overvalued' ? 'alert alert-danger' : 'alert alert-success'">
+  <div class={{differentialClass}}>
     <h2 style="text-align: center;">
-      This property is <b>{{valuationLabel}}</b> by <b>{{differential}}</b>
+      This property is <b>{{valuationLabel}}</b>{{differential}}
     </h2>
   </div>
 </div>

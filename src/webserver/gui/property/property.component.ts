@@ -13,7 +13,8 @@ import { SharedService } from '../shared/shared.service';
 export class PropertyComponent implements OnInit {
   propertyDetail:object;
   valuationLabel:string;
-  differential:number;
+  differential:string = "";
+  differentialClass:string = "alert alert-info";
 
   constructor(
     private route: ActivatedRoute,
@@ -75,9 +76,17 @@ export class PropertyComponent implements OnInit {
         this.valuationLabel = priceImperfectionCheck['differential']['label'];
         var priceDifference = Math.abs(
           Number(priceImperfectionCheck['differential']['difference']));
-        this.differential = this.sharedService.cleanPropertyPrice(
-          this.propertyDetail['priceInfo']['currency'],
-          priceDifference.toFixed(2));
+        if (this.valuationLabel == "overvalued") {
+          this.differentialClass = "alert alert-danger";
+          this.differential = " by " + this.sharedService.cleanPropertyPrice(
+            this.propertyDetail['priceInfo']['currency'],
+            priceDifference.toFixed(2));
+        } else if (this.valuationLabel == "undervalued") {
+          this.differentialClass = "alert alert-success";
+          this.differential = " by " + this.sharedService.cleanPropertyPrice(
+            this.propertyDetail['priceInfo']['currency'],
+            priceDifference.toFixed(2));
+        }
       }
     );
   };
