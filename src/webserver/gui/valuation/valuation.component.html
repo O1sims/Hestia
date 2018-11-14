@@ -73,12 +73,12 @@
 </div>
 
 <div class="container" style="padding-top:25px;">
-  <div class="jumbotron">
+  <div class="jumbotron" style="text-align: center;">
     <h2 *ngIf="estimatedValue==undefined">
       Fill out the form above to estimate the value of your house...
     </h2>
     <h2 *ngIf="estimatedValue!=undefined">
-      {{estimatedValue}}
+      We have estimated the value of the {{propertyStyle}} to be around {{estimatedValue}}.
     </h2>
   </div>
 </div>
