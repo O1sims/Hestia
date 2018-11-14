@@ -29,3 +29,11 @@ Likewise, the application can be brought down with `bash build.sh down`.
 By default, the main Hestia application is accessible on port `3000`, the API and backend components are on port `5000`, the Mongo database is run on port `8210`. The `docker-compose.yml` can be altered to allow these services to run on different ports. Swagger API documentation can be found at `localhost:5000/swagger/`.
 
 Environmental variables for the application can be changed in the `docker-compose.yml` file.
+
+## Using the application
+
+The application stores data of 1,500 properties which have been scraped from NI's biggest property portal, PropertyPal. When the application is initially ran, a property valuation model is created and stored. This is used to value properties in Belfast and is at the crux of the application.
+
+Using your browser, navigate to `localhost:3000`, here you will see a front page with a search bar. You can search for whatever you like... but since there are only 1,500 properties, you may want to use the search term, `holywood` or `east belfast` or just `belfast` to get a list of properties. Each property should have some analysis that suggests whether it is overvalued, undervalued or correctly priced.
+
+Along with search, a user can also analyse the price estimation of their own properties and upload details of their property to the database. It will then be searchable.
