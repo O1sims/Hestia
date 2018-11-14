@@ -26,4 +26,19 @@ export class ValuationService {
 		.map(res => res.json());
   };
 
+  addProperty(submitPropertyData) {
+    var requestoptions = new RequestOptions({
+			method: RequestMethod.Post,
+			url: this.api + '/properties/',
+      body: submitPropertyData
+		});
+		return this.http.request(
+      new Request(requestoptions))
+      .map((res: Response) => {
+  			if (res) {
+          return {status: res.status};
+  			};
+      });
+  };
+
 };

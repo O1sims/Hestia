@@ -17,6 +17,18 @@ SEARCH_Q = openapi.Parameter(
     type=openapi.TYPE_STRING,
     required=True)
 
+def generate_brief(property_data):
+    return "{} bed {} for sale".format(
+        property_data['details']['bedrooms'],
+        property_data['details']['style']
+    )
+
+def generate_tags(property_data):
+    return [
+        property_data['address'].lower(),
+        property_data['postcode'].lower(),
+        property_data['town'].lower()
+    ]
 
 class PropertyDataView(ListCreateAPIView):
     renderer_classes = (JSONRenderer, )
@@ -35,17 +47,18 @@ class PropertyDataView(ListCreateAPIView):
             data=properties,
             status=200)
 
-    @swagger_auto_schema(responses={201: "Created"})
     def post(self, request, *args, **kwargs):
         PropertyDataModel(
             data=request.data).is_valid(
             raise_exception=True)
-        properties = MongoService().insert_to_collection(
+        request.data['brief'] = generate_brief(
+            property_data=request.data)
+        request.data['tags'] = generate_tags(
+            property_data=request.data)
+        MongoService().insert_to_collection(
             collection_name=MONGO_DB_INFO['propertyCollection'],
             data=request.data)
-        return Response(
-            data=properties,
-            status=200)
+        return Response(status=201)
 
 
 class PropertyDataIdView(ListAPIView):

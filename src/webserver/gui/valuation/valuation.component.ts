@@ -10,6 +10,12 @@ import { SharedService } from '../shared/shared.service';
 })
 
 export class ValuationComponent {
+  towns:string[] = [
+    "belfast",
+    "holywood",
+    "dundonald"
+  ]
+
   heatingChoices:string[] = [
     "economy 7",
     "gas",
@@ -35,6 +41,8 @@ export class ValuationComponent {
   ]
 
   bedrooms:number = 1;
+  estimatedValue:number;
+  rawEstimation:number;
 
   garden:boolean = false;
   driveway:boolean = false;
@@ -45,7 +53,10 @@ export class ValuationComponent {
   postcode:string = this.postcodeChoices[0];
   propertyStyle:string = this.propertyStyleChoices[0];
 
-  estimatedValue:number;
+  address:string;
+  town:string = this.towns[0];
+
+  propertySubmitted:boolean = false;
 
   constructor(
     private sharedService: SharedService,
@@ -60,6 +71,10 @@ export class ValuationComponent {
       this.postcode = event['target']['value'];
     } else if (feature=="bedrooms") {
       this.bedrooms = event['target']['value'];
+    } else if (feature=="address") {
+      this.address = event['target']['value'];
+    } else if (feature=="town") {
+      this.town = event['target']['value'];
     };
   };
 
@@ -72,10 +87,10 @@ export class ValuationComponent {
       this.garden = !this.garden;
     } else if (amenity=="bayWindow") {
       this.bayWindow = !this.bayWindow;
-    }
+    };
   };
 
-  estimatePropertyValue() {
+  constructPropertyData(forSubmission=false) {
     var propertyData = {
       "postcode": this.postcode,
       "details": {
@@ -90,12 +105,38 @@ export class ValuationComponent {
         }
       }
     };
+    if (forSubmission) {
+      propertyData['propertyId'] = Math.floor(Math.random()*100000).toString();
+      propertyData['address'] = this.address;
+      propertyData['town'] = this.town;
+      propertyData['priceInfo'] = {
+        'price': this.rawEstimation,
+        'currency': 'pound'
+      };
+      propertyData['estateAgent'] = {
+        "name": "Self-sale",
+        "branch": "Hestia"
+      }
+    };
+    return propertyData;
+  }
+
+  estimatePropertyValue() {
+    var propertyData = this.constructPropertyData();
     this.valuationService.propertyValuation(propertyData)
     .subscribe(valuation => {
       this.estimatedValue = this.sharedService.cleanPropertyPrice(
         'pound', valuation['estimatedPrice'].toFixed(2));
+      this.rawEstimation =  Number(valuation['estimatedPrice'].toFixed(2));
     });
+  }
 
+  submitProperty() {
+    var propertyData = this.constructPropertyData(true);
+    this.valuationService.addProperty(propertyData)
+    .subscribe(submitData => {
+      this.propertySubmitted=true;
+    });
   }
 
 }
