@@ -13,6 +13,7 @@ import { SharedService } from '../shared/shared.service';
 export class PropertyComponent implements OnInit {
   propertyDetail:object;
   valuationLabel:string;
+  differential:number;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,15 +35,31 @@ export class PropertyComponent implements OnInit {
     });
   };
 
+  sanityCheckFeature(feature, data) {
+    if (data==undefined) {
+      var replacement;
+      if (feature=="heating") {
+        replacement = "gas";
+      } else if (feature=="bedrooms") {
+        replacement = 2;
+      }
+      return replacement;
+    } else {
+      return data;
+    }
+  };
+
   checkPriceImperfection(propertyData) {
     var formattedPropertyData = {
       "givenPrice": propertyData['priceInfo']['price'],
       "propertyInfo": {
         "postcode": propertyData["postcode"],
         "details": {
-          "bedrooms": Number(propertyData["details"]["bedrooms"]),
+          "bedrooms": this.sanityCheckFeature(
+            "bedrooms", Number(propertyData["details"]["bedrooms"])),
           "style": propertyData["details"]["style"],
-          "heating": propertyData["details"]["heating"],
+          "heating": this.sanityCheckFeature(
+            "heating", propertyData["details"]["heating"]),
           "amenities": {
             "garage": propertyData["details"]["amenities"]["garage"],
             "garden": propertyData["details"]["amenities"]["garden"],
@@ -51,12 +68,16 @@ export class PropertyComponent implements OnInit {
           }
         }
       }
-    }
+    };
     this.propertyService.priceImperfection(formattedPropertyData)
     .subscribe(
       priceImperfectionCheck => {
-        console.log(priceImperfectionCheck);
         this.valuationLabel = priceImperfectionCheck['differential']['label'];
+        var priceDifference = Math.abs(
+          Number(priceImperfectionCheck['differential']['difference']));
+        this.differential = this.sharedService.cleanPropertyPrice(
+          this.propertyDetail['priceInfo']['currency'],
+          priceDifference.toFixed(2));
       }
     );
   };
