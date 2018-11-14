@@ -42,6 +42,6 @@ class MongoService:
 
     def drop_database(self, collection_name=None):
         if collection_name is None:
-            self.mongo_connection.drop_database([os.environ.get('DB_NAME')])
+            self.mongo_connection.drop_database(os.environ.get('DB_NAME'))
         else:
             self.mongo_connection[os.environ.get('DB_NAME')].drop_collection(collection_name)
