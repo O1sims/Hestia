@@ -37,3 +37,5 @@ The application stores data of 1,500 properties which have been scraped from NI'
 Using your browser, navigate to `localhost:3000`, here you will see a front page with a search bar. You can search for whatever you like... but since there are only 1,500 properties, you may want to use the search term, `holywood` or `east belfast` or just `belfast` to get a list of properties. Each property should have some analysis that suggests whether it is overvalued, undervalued or correctly priced.
 
 Along with search, a user can also analyse the price estimation of their own properties and upload details of their property to the database. It will then be searchable.
+
+To get an overview of the backend, please look at the Swagger documentation `localhost:5000/swagger/` and have a play there!
