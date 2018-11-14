@@ -118,3 +118,11 @@ body {
         transform: rotate(0deg);
     }
 }
+
+.jumbotron-green {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  color: #FFF;
+  background-color: #87d3a5;
+}
